@@ -1,1 +1,45 @@
-<p>medios-transporte works!</p>
+<div class="container m-5">
+  <div class="card">
+    <div class="card-header">
+      <h4>{{ titulo }}</h4>
+    </div>
+    <div class="card-body">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Opciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let transporte of lista">
+            <th scope="row">{{ transporte.id }}</th>
+            <td>{{ transporte.nombre_transporte }}</td>
+            <!-- <td>{{ clientes.documento }}</td> -->
+            <td>
+              <button
+                type="button"
+                class="btn btn-outline-primary me-2"
+                [routerLink]="['/transporte/form', transporte.id]"
+              >
+                Editar
+              </button>
+              <button
+                type="button"
+                class="btn btn-outline-danger"
+                (click)="eliminar(transporte)"
+              >
+                Eliminar
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <button class="btn btn-info float-end" routerLink="/clientes/form">
+        Crear nuevo cliente
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Clientes } from 'src/app/models/clientes';
 import { ClientesService } from 'src/app/services/clientes.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-clientes',
@@ -15,14 +16,28 @@ export class ClientesComponent implements OnInit {
 
   ngOnInit(): void {
     this.service.listar().subscribe((lista) => (this.lista = lista));
+    
   }
 
   public eliminar(cliente: Clientes): void {
-    if (confirm(`Seguro que desea eliminar a ${cliente.nombre}`)) {
-      this.service.eliminar(cliente.id).subscribe(() => {
-        this.lista = this.lista.filter((p) => p !== cliente);
-        alert(`Cliente ${cliente.nombre} eliminado con exito`);
-      });
-    }
+    Swal.fire({
+      title: 'Cuidado!',
+      text: `Seguro que desea eliminar a ${cliente.nombre}`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si, eliminar!',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.service.eliminar(cliente.id).subscribe(() => {
+          this.lista = this.lista.filter((p) => p !== cliente);
+          Swal.fire(
+            `Cliente ${cliente.nombre} eliminado con éxito`,
+            'Excelente'
+          );
+        });
+      }
+    });
   }
 }
