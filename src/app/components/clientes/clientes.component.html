@@ -1,0 +1,46 @@
+<div class="container m-5">
+  <div class="card">
+    <div class="card-header">
+      <h4>{{ titulo }}</h4>
+    </div>
+    <div class="card-body">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Número de documento</th>
+            <th scope="col">Opciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let clientes of lista">
+            <th scope="row">{{ clientes.id }}</th>
+            <td>{{ clientes.nombre }}</td>
+            <td>{{ clientes.documento }}</td>
+            <td>
+              <button
+                type="button"
+                class="btn btn-outline-primary me-2"
+                [routerLink]="['/clientes/form', clientes.id]"
+              >
+                Editar
+              </button>
+              <button
+                type="button"
+                class="btn btn-outline-danger"
+                (click)="eliminar(clientes)"
+              >
+                Eliminar
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <button class="btn btn-info float-end" routerLink="/clientes/form">
+        Crear nuevo cliente
+      </button>
+    </div>
+  </div>
+</div>
